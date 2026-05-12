@@ -21,11 +21,11 @@
   <img src="assets/space-shooter.gif" />
 </p>
 
-!-- Space Shooter Contribution Game --
+<!-- Space Shooter Contribution Game -->
 <p align="center">
   <img src="https://raw.githubusercontent.com/RiteshKumar2e/RiteshKumar2e/output/github-contribution-grid-snake.svg" />
 </p>
--->
+
 ---
 
 ### 👨‍💻 About Me
