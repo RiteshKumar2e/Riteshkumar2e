@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Profile Preview</title>
+<style>
+:root{--bg:#ffffff;--fg:#1f2328;--line:#d0d7de;--muted:#59636e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1117;--fg:#e6edf3;--line:#30363d;--muted:#9198a1}}
+:root[data-theme="dark"]{--bg:#0d1117;--fg:#e6edf3;--line:#30363d;--muted:#9198a1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;max-width:1260px;margin:0 auto;padding:16px}
+header h1{font-size:16px;margin:0}
+button{font:inherit;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.wrap{display:flex;flex-wrap:wrap;gap:32px;justify-content:center;padding:0 16px 48px}
+.col{border:1px solid var(--line);border-radius:6px;padding:16px;min-width:0}
+.desk{width:830px;max-width:100%}.mob{width:375px;max-width:100%}
+.col h2{font-size:12px;font-weight:600;color:var(--muted);margin:0 0 12px;text-transform:uppercase;letter-spacing:.06em}
+.col img{display:block;max-width:100%;height:auto;margin:0 0 16px}
+</style></head><body>
+<header><h1>GitHub profile preview: README width (830px) and phone width (375px)</h1>
+<span><button data-t="light">Light</button> <button data-t="dark">Dark</button> <button data-t="">System</button></span></header>
+<div class="wrap">
+<section class="col desk"><h2>Desktop README column</h2><img src="assets/hero.svg?v=1" alt="Intro — Ritesh Kumar, ML Engineer, Jamshedpur" width="1000"><img src="assets/about-life.svg?v=1" alt="About — what I build and my interests" width="1000"><img src="assets/stack.svg?v=1" alt="Stack — the tools I build with" width="1000"><img src="assets/id-dashboard.svg?v=1" alt="ID — lanyard card and verified, dated metrics" width="1000"><img src="assets/connect.svg?v=1" alt="Connect — LinkedIn, GitHub, email and portfolio" width="1000"></section>
+<section class="col mob"><h2>Phone</h2><img src="assets/hero.svg?v=1" alt="Intro — Ritesh Kumar, ML Engineer, Jamshedpur" width="1000"><img src="assets/about-life.svg?v=1" alt="About — what I build and my interests" width="1000"><img src="assets/stack.svg?v=1" alt="Stack — the tools I build with" width="1000"><img src="assets/id-dashboard.svg?v=1" alt="ID — lanyard card and verified, dated metrics" width="1000"><img src="assets/connect.svg?v=1" alt="Connect — LinkedIn, GitHub, email and portfolio" width="1000"></section>
+</div>
+<script>
+document.querySelectorAll('button[data-t]').forEach(b=>b.addEventListener('click',()=>{
+  const t=b.dataset.t; if(t) document.documentElement.dataset.theme=t; else delete document.documentElement.dataset.theme;}));
+</script>
+</body></html>

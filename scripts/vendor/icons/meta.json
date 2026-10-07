@@ -1,0 +1,144 @@
+{
+ "C++": {
+  "hex": "00599C",
+  "source": "https://github.com/isocpp/logos/tree/64ef037049f87ac74875dbe72695e59118b52186",
+  "slug": "cplusplus",
+  "guidelines": null,
+  "license": null
+ },
+ "Docker": {
+  "hex": "2496ED",
+  "source": "https://www.docker.com/company/newsroom/media-resources",
+  "slug": "docker",
+  "guidelines": null,
+  "license": null
+ },
+ "Express": {
+  "hex": "0A0A0A",
+  "source": "https://github.com/openjs-foundation/artwork/blob/3816245ebbf4707bdafde748350ac8476b6b5b62/projects/express/express-icon-black.svg",
+  "slug": "express",
+  "guidelines": null,
+  "license": null
+ },
+ "FastAPI": {
+  "hex": "009688",
+  "source": "https://github.com/tiangolo/fastapi/blob/ffb4f77a11f83132b521ba0aac6c95792c19e797/docs/en/docs/img/icon-white.svg",
+  "slug": "fastapi",
+  "guidelines": null,
+  "license": null
+ },
+ "Git": {
+  "hex": "F03C2E",
+  "source": "https://git-scm.com/community/logos",
+  "slug": "git",
+  "guidelines": null,
+  "license": {
+   "type": "CC-BY-3.0"
+  }
+ },
+ "GitHub": {
+  "hex": "181717",
+  "source": "https://github.com/logos",
+  "slug": "github",
+  "guidelines": "https://github.com/logos",
+  "license": null
+ },
+ "Gmail": {
+  "hex": "EA4335",
+  "source": "https://fonts.gstatic.com/s/i/productlogos/gmail_2020q4/v8/192px.svg",
+  "slug": "gmail",
+  "guidelines": null,
+  "license": null
+ },
+ "Keras": {
+  "hex": "D00000",
+  "source": "https://keras.io",
+  "slug": "keras",
+  "guidelines": null,
+  "license": null
+ },
+ "MongoDB": {
+  "hex": "47A248",
+  "source": "https://www.mongodb.com/pressroom",
+  "slug": "mongodb",
+  "guidelines": null,
+  "license": null
+ },
+ "MySQL": {
+  "hex": "4479A1",
+  "source": "https://www.mysql.com/about/legal/logos.html",
+  "slug": "mysql",
+  "guidelines": "https://www.mysql.com/about/legal/logos.html",
+  "license": null
+ },
+ "Node.js": {
+  "hex": "5FA04E",
+  "source": "https://nodejs.org/en/about/branding",
+  "slug": "nodedotjs",
+  "guidelines": "https://nodejs.org/en/about/branding",
+  "license": null
+ },
+ "NumPy": {
+  "hex": "013243",
+  "source": "https://numpy.org/press-kit/",
+  "slug": "numpy",
+  "guidelines": "https://github.com/numpy/numpy/blob/main/branding/logo/logoguidelines.md",
+  "license": null
+ },
+ "OpenCV": {
+  "hex": "5C3EE8",
+  "source": "https://opencv.org/resources/media-kit/",
+  "slug": "opencv",
+  "guidelines": "https://opencv.org/resources/media-kit/",
+  "license": null
+ },
+ "pandas": {
+  "hex": "150458",
+  "source": "https://pandas.pydata.org/about/citing.html",
+  "slug": "pandas",
+  "guidelines": "https://pandas.pydata.org/about/citing.html",
+  "license": null
+ },
+ "PostgreSQL": {
+  "hex": "4169E1",
+  "source": "https://wiki.postgresql.org/wiki/Logo",
+  "slug": "postgresql",
+  "guidelines": "https://www.postgresql.org/about/policies/trademarks/",
+  "license": null
+ },
+ "Python": {
+  "hex": "3776AB",
+  "source": "https://www.python.org/community/logos/",
+  "slug": "python",
+  "guidelines": "https://www.python.org/community/logos/",
+  "license": null
+ },
+ "PyTorch": {
+  "hex": "EE4C2C",
+  "source": "https://github.com/pytorch/pytorch.github.io/blob/8f083bd12192ca12d5e1c1f3d236f4831d823d8f/assets/images/logo.svg",
+  "slug": "pytorch",
+  "guidelines": "https://github.com/pytorch/pytorch.github.io/blob/381117ec296f002b2de475402ef29cca6c55e209/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf",
+  "license": null
+ },
+ "React": {
+  "hex": "61DAFB",
+  "source": "https://github.com/facebook/create-react-app/blob/282c03f9525fdf8061ffa1ec50dce89296d916bd/test/fixtures/relative-paths/src/logo.svg",
+  "slug": "react",
+  "guidelines": null,
+  "license": null
+ },
+ "scikit-learn": {
+  "hex": "F7931E",
+  "source": "https://github.com/scikit-learn/scikit-learn/blob/c5ef2e985c13119001aa697e446ebb3dbcb326e5/doc/logos/scikit-learn-logo.svg",
+  "slug": "scikitlearn",
+  "guidelines": null,
+  "license": null
+ },
+ "TensorFlow": {
+  "hex": "FF6F00",
+  "source": "https://www.tensorflow.org",
+  "slug": "tensorflow",
+  "guidelines": null,
+  "license": null
+ }
+}
