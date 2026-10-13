@@ -4,8 +4,8 @@ from datetime import datetime
 def make_specific_commits():
     # Specific dates with 4 commits each
     dates = [
-        "2026-08-27",
-        "2026-08-28"
+        "2026-10-12",
+        "2026-10-13"
     ]
 
     for date_str in dates:
