@@ -40,7 +40,7 @@ Brand icons come from **Simple Icons 16.34.0** (https://simpleicons.org, npm `si
 | Email (connect) | Gmail | #EA4335 | https://fonts.gstatic.com/s/i/productlogos/gmail_2020q4/v8/192px.svg |
 
 * **Git logo:** by Jason Long, licensed under **CC BY 3.0** (https://git-scm.com/downloads/logos).
-* **LinkedIn:** Simple Icons no longer ships a LinkedIn icon. The connect card uses LinkedIn's official "In" bug, `LI-In-Bug.png`, unmodified apart from resizing. It comes from the `in-logo.zip` package on LinkedIn's brand site, https://brand.linkedin.com/downloads, downloaded 07 Oct 2026. LinkedIn and the In logo are trademarks of LinkedIn Corporation. Use follows https://brand.linkedin.com/policies.
+* **LinkedIn:** Simple Icons no longer ships a LinkedIn icon. The connect card uses LinkedIn's official "In" bug, `LI-In-Bug.png`, unmodified apart from resizing. It comes from the `in-logo.zip` package on LinkedIn's brand site, https://brand.linkedin.com/downloads, downloaded 25 Oct 2026. LinkedIn and the In logo are trademarks of LinkedIn Corporation. Use follows https://brand.linkedin.com/policies.
 * **Other glyphs:** the pin, flask, building, globe, arrow, chevron and braces glyphs are simple line drawings made for this profile.
 
 ## Photos
