@@ -2,21 +2,22 @@
 
 ![Intro — Ritesh Kumar, ML Engineer, Jamshedpur](./assets/hero.svg?v=1)
 
-![About — what I build and my interests](./assets/about-life.svg?v=1)
+![About — what I build and my interests](./assets/about-life.svg?v=2)
 
 ![Stack — the tools I build with](./assets/stack.svg?v=1)
 
-![ID — lanyard card and verified, dated metrics](./assets/id-dashboard.svg?v=1)
+![ID — lanyard card and verified, dated metrics](./assets/id-dashboard.svg?v=2)
 
 ## Projects
 
 | Project | What it does | Highlights | Language | Repository |
 | --- | --- | --- | --- | --- |
 | **QuickFix** | AI-powered troubleshooting platform that helps users identify technical problems and provides actionable, step-by-step solutions. | AI troubleshooting · step-by-step fixes | Python | [customer-complaint-agent_new](https://github.com/RiteshKumar2e/customer-complaint-agent_new) |
+| **MobileNetV2 Defect Research** | Steel-surface defect classification with CAM-based localization: a MobileNetV2 backbone with FPN and attention fusion blocks, evaluated on NEU-DET and GC10-DET against baseline backbones, an FCOS-style detector and YOLO models. | MobileNetV2 · FPN · Grad-CAM · NEU-DET + GC10-DET | Jupyter Notebook | [MobileNetV2](https://github.com/RiteshKumar2e/MobileNetV2) |
 | **Steel Defect Detection** | Deep-learning computer vision system for detecting and classifying surface defects in steel using CNNs, MobileNetV2, FPN, and attention-based feature processing. | CNNs · MobileNetV2 · FPN · attention | Jupyter Notebook | [Steel_Surface_Defect_NEU_DET-DATASET](https://github.com/RiteshKumar2e/Steel_Surface_Defect_NEU_DET-DATASET) |
-| **Community AI** | AI-powered community platform that helps users connect, share knowledge, discover relevant information, and receive intelligent assistance. | Community knowledge · AI assistance | JavaScript | [Community-Empowering-2.0](https://github.com/RiteshKumar2e/Community-Empowering-2.0) |
+| **JobPilot AI** | Multi-agent system that finds entry-level jobs on Greenhouse and Lever, checks eligibility, picks the best of your own resumes and applies, emailing you anything it can't answer honestly. | Multi-agent · FastAPI · React · Playwright | Python | [jobpilot](https://github.com/RiteshKumar2e/jobpilot) |
 
-<sub>Repository languages from the GitHub API, read 07 Oct 2026.</sub>
+<sub>Repository languages from the GitHub API, read 25 Oct 2026.</sub>
 
 ## GitHub activity
 

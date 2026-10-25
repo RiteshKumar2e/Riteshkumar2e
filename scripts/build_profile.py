@@ -38,7 +38,7 @@ DIM = "#76809a"
 CARD_INK = "#0b1020"  # dark text on the light ID card
 
 # Facts supplied by the user, plus GitHub API data read on AS_OF.
-AS_OF = "07 Oct 2026"
+AS_OF = "25 Oct 2026"
 PERSON = {
     "name": "Ritesh Kumar",
     "github": "RiteshKumar2e",
@@ -50,7 +50,7 @@ PERSON = {
               "intelligent automation, and AI-powered applications."),
     "roles": ["ML Engineer", "AI/ML Engineer", "Computer Vision Engineer", "Software Engineer"],
 }
-GH_API = {"public_repos": 77, "member_since": "Aug 2023"}  # api.github.com/users/RiteshKumar2e
+GH_API = {"public_repos": 79, "member_since": "Aug 2023"}  # api.github.com/users/RiteshKumar2e
 LINKS = [
     # (key, platform, display text, href)
     ("linkedin", "LinkedIn", "linkedin.com/in/riteshkumar-tech", "https://linkedin.com/in/riteshkumar-tech"),
@@ -60,21 +60,28 @@ LINKS = [
 ]
 PROJECTS = [
     # (name, description, highlights, repo, primary language per GitHub API)
+    # Descriptions come from the user's brief or the repo's own README.
     ("QuickFix",
      "AI-powered troubleshooting platform that helps users identify technical problems "
      "and provides actionable, step-by-step solutions.",
      "AI troubleshooting · step-by-step fixes",
      "customer-complaint-agent_new", "Python"),
+    ("MobileNetV2 Defect Research",
+     "Steel-surface defect classification with CAM-based localization: a MobileNetV2 backbone "
+     "with FPN and attention fusion blocks, evaluated on NEU-DET and GC10-DET against baseline "
+     "backbones, an FCOS-style detector and YOLO models.",
+     "MobileNetV2 · FPN · Grad-CAM · NEU-DET + GC10-DET",
+     "MobileNetV2", "Jupyter Notebook"),
     ("Steel Defect Detection",
      "Deep-learning computer vision system for detecting and classifying surface defects "
      "in steel using CNNs, MobileNetV2, FPN, and attention-based feature processing.",
      "CNNs · MobileNetV2 · FPN · attention",
      "Steel_Surface_Defect_NEU_DET-DATASET", "Jupyter Notebook"),
-    ("Community AI",
-     "AI-powered community platform that helps users connect, share knowledge, discover "
-     "relevant information, and receive intelligent assistance.",
-     "Community knowledge · AI assistance",
-     "Community-Empowering-2.0", "JavaScript"),
+    ("JobPilot AI",
+     "Multi-agent system that finds entry-level jobs on Greenhouse and Lever, checks eligibility, "
+     "picks the best of your own resumes and applies, emailing you anything it can't answer honestly.",
+     "Multi-agent · FastAPI · React · Playwright",
+     "jobpilot", "Python"),
 ]
 LANG_COLORS = {"Python": "#3572A5", "Jupyter Notebook": "#DA5B0B", "JavaScript": "#f1e05a"}
 
@@ -128,7 +135,7 @@ def wrap(s: str, cls: str, size: float, maxw: float) -> list[str]:
 
 
 def font_face(cls: str, chars: set[str]) -> str:
-    tt = TTFont(VENDOR / "fonts" / FONT_FILES[cls])
+    tt = TTFont(VENDOR / "fonts" / FONT_FILES[cls], recalcTimestamp=False)  # reproducible output
     opts = ftsubset.Options()
     opts.flavor = "woff2"
     opts.layout_features = ["kern", "liga", "calt"]
@@ -793,7 +800,7 @@ def code39(data: str, x: float, y: float, h: float, narrow: float, wide: float, 
 
 
 def build_id() -> Doc:
-    W, H = 1000, 744
+    W, H = 1000, 744 + 56 * (len(PROJECTS) - 3)
     d = Doc("id", W, H, "ID card and verified dashboard",
             f"Lanyard ID for {PERSON['name']}, {PERSON['role']}, {PERSON['lab']}, {PERSON['org']}. "
             "Verified, dated metrics: B.Tech CSE CGPA 8.47 (May 2026); Naukri Young Turks 2025, 98.61 percentile, "
@@ -1007,6 +1014,8 @@ def build_connect() -> Doc:
 
 
 # ========================================================= README / misc ===
+# Bump an entry's version whenever that SVG changes, so GitHub stops serving the cached copy.
+VERSIONS = {"hero": 1, "about-life": 2, "stack": 1, "id-dashboard": 2, "connect": 1}
 IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
           ("about-life", "About — what I build and my interests"),
           ("stack", "Stack — the tools I build with"),
@@ -1015,7 +1024,7 @@ IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
 
 
 def readme() -> str:
-    img = {k: f"![{alt}](./assets/{k}.svg?v=1)" for k, alt in IMAGES}
+    img = {k: f"![{alt}](./assets/{k}.svg?v={VERSIONS[k]})" for k, alt in IMAGES}
     rows = "\n".join(
         f"| **{name}** | {desc} | {hl} | {lang} | [{repo}](https://github.com/{PERSON['github']}/{repo}) |"
         for name, desc, hl, repo, lang in PROJECTS)
@@ -1143,7 +1152,7 @@ def main():
         (lic / dst).write_bytes((VENDOR / src).read_bytes())
     (lic / "README.md").write_text(licenses_md(), encoding="utf8")
     (ROOT / "README.md").write_text(readme(), encoding="utf8")
-    imgs = "".join(f'<img src="assets/{k}.svg?v=1" alt="{escape(a)}" width="1000">' for k, a in IMAGES)
+    imgs = "".join(f'<img src="assets/{k}.svg?v={VERSIONS[k]}" alt="{escape(a)}" width="1000">' for k, a in IMAGES)
     (ROOT / "preview.html").write_text(PREVIEW.replace("__IMGS__", imgs), encoding="utf8")
     DIST.mkdir(exist_ok=True)
     zpath = DIST / "RiteshKumar2e-profile.zip"
