@@ -71,13 +71,9 @@
 
 <sub></sub>Tap <b> for details. Languages from the GitHub API, read 01 Nov 2026.Read more</sub>
 
-<p align="right"><sub><a href="#top">back to top ↑</a></sub></p>
+## From problem to product
 
-
-## **From problem to product**
-
-
-## **GitHub activity**
+## GitHub activity
 
 <p align="center">
   <img src="https://streak-stats.demolab.com/?user=RiteshKumar2e&theme=tokyonight" height="150" alt="GitHub contribution streak for RiteshKumar2e" />
@@ -87,20 +83,19 @@
   <img src="./assets/space-shooter.gif" alt="Space shooter game generated from my contribution graph" />
 </p>
 
-<p align="right"><sub><a href="#top">back to top ↑</a></sub></p>
+<a name="connect"></a>
 
-
+![Connect — LinkedIn, GitHub, email and portfolio](./assets/connect.svg?v=1)
 
 <p align="center"><kbd><a href="https://linkedin.com/in/riteshkumar-tech">LinkedIn ↗</a></kbd>  <kbd><a href="https://github.com/RiteshKumar2e">GitHub ↗</a></kbd>  <kbd><a href="mailto:riteshkumar90359@gmail.com">Email ↗</a></kbd>  <kbd><a href="https://riteshkr.info">Portfolio ↗</a></kbd></p>
 
 <details>
 <summary><b>All links</b></summary>
 
-- ****LinkedIn:** [linkedin.com/in/riteshkumar-tech](https://linkedin.com/in/riteshkumar-tech)**
-- ****GitHub:** [github.com/RiteshKumar2e](https://github.com/RiteshKumar2e)**
-- ****Email:** [riteshkumar90359@gmail.com](mailto:riteshkumar90359@gmail.com)**
-- ****Portfolio:** [riteshkr.info](https://riteshkr.info)**
+- **LinkedIn:** [linkedin.com/in/riteshkumar-tech](https://linkedin.com/in/riteshkumar-tech)
+- **GitHub:** [github.com/RiteshKumar2e](https://github.com/RiteshKumar2e)
+- **Email:** [riteshkumar90359@gmail.com](mailto:riteshkumar90359@gmail.com)
+- **Portfolio:** [riteshkr.info](https://riteshkr.info)
 
 </details>
 
-<p align="right"><sub><a href="#top">back to top ↑</a></sub></p>

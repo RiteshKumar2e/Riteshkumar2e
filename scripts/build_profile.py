@@ -1059,7 +1059,6 @@ def readme() -> str:
     gh = PERSON["github"]
     img = {k: f"![{alt}](./assets/{k}.svg?v={VERSIONS[k]})" for k, alt in IMAGES}
     nav = " &nbsp;·&nbsp; ".join(f'<a href="#{a}">{t}</a>' for a, t in NAV)
-    top = '<p align="right"><sub><a href="#top">back to top ↑</a></sub></p>'
 
     rows = []
     for k, (name, desc, hl, repo, lang) in enumerate(PROJECTS):
@@ -1127,7 +1126,6 @@ def readme() -> str:
 
 <sub>Tap <b>Read more</b> for details. Languages from the GitHub API, read {AS_OF}.</sub>
 
-{top}
 
 <a name="workflow"></a>
 
@@ -1158,7 +1156,6 @@ flowchart LR
   <img src="./assets/space-shooter.gif" alt="Space shooter game generated from my contribution graph" />
 </p>
 
-{top}
 
 <a name="connect"></a>
 
@@ -1173,7 +1170,6 @@ flowchart LR
 
 </details>
 
-{top}
 """
 
 
