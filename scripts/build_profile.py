@@ -1031,6 +1031,26 @@ IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
 # Live demos (repo homepage field or the repo README; each checked to return 200).
 LIVE = {"Community-Empowering-2.0": "https://communityai.co.in",
         "customer-complaint-agent_new": "https://riteshkr.online"}
+# One-line taglines shown in the projects table (full description sits under "Read more").
+TAGLINE = {
+    "Community-Empowering-2.0": "Government schemes, learning and jobs, with AI help in 11 languages.",
+    "customer-complaint-agent_new": "AI troubleshooting that turns problems into step-by-step fixes.",
+    "MobileNetV2": "Steel defect classification with CAM-based localization.",
+    "Steel_Surface_Defect_NEU_DET-DATASET": "CNN-based detection and classification of steel surface defects.",
+    "jobpilot": "Multi-agent assistant that finds entry-level jobs and applies for you.",
+}
+LANG_LOGO = {"Python": ("python", "white"), "JavaScript": ("javascript", "black"),
+             "Jupyter Notebook": ("jupyter", "white")}
+
+
+def badge(label: str, color: str, logo: str = "", logo_color: str = "white") -> str:
+    from urllib.parse import quote
+    url = f"https://img.shields.io/badge/{quote(label.replace('-', '--'))}-{color.lstrip('#')}?style=flat-square"
+    if logo:
+        url += f"&logo={logo}&logoColor={logo_color}"
+    return url
+
+
 NAV = [("about", "About"), ("stack", "Stack"), ("verified", "Verified"), ("projects", "Projects"),
        ("workflow", "Workflow"), ("activity", "Activity"), ("connect", "Connect")]
 
@@ -1041,20 +1061,21 @@ def readme() -> str:
     nav = " &nbsp;·&nbsp; ".join(f'<a href="#{a}">{t}</a>' for a, t in NAV)
     top = '<p align="right"><sub><a href="#top">back to top ↑</a></sub></p>'
 
-    cards = []
+    rows = []
     for k, (name, desc, hl, repo, lang) in enumerate(PROJECTS):
-        tag = " &nbsp;<code>latest</code>" if k == 0 else ""
-        buttons = f'<kbd><a href="https://github.com/{gh}/{repo}">Repository ↗</a></kbd>'
+        tag = "<br><sub><code>latest</code></sub>" if k == 0 else ""
+        chips = " ".join(f"<code>{c.strip().replace(' ', '&nbsp;')}</code>" for c in hl.split("·"))
+        logo, lc = LANG_LOGO[lang]
+        lang_badge = f'<img src="{badge(lang, LANG_COLORS[lang], logo, lc)}" alt="{lang}">'
+        links = (f'<a href="https://github.com/{gh}/{repo}"><img src="{badge("GitHub", "181717", "github")}" alt="GitHub repository"></a>')
         if repo in LIVE:
-            buttons += f' &nbsp;<kbd><a href="{LIVE[repo]}">Live demo ↗</a></kbd>'
-        cards.append(f"""<details{" open" if k == 0 else ""}>
-<summary><b>{name}</b>{tag} &nbsp;<sub>{lang} · {hl}</sub></summary>
-
-> {desc}
-
-{buttons}
-
-</details>""")
+            links += f'<br><a href="{LIVE[repo]}"><img src="{badge("Live demo", BLUE, "googlechrome")}" alt="Live demo"></a>'
+        rows.append(f"""<tr>
+<td><b>{name}</b>{tag}</td>
+<td>{TAGLINE[repo]}<details><summary><sub>Read more</sub></summary><sub>{desc}</sub></details></td>
+<td>{chips}<br>{lang_badge}</td>
+<td align="center">{links}</td>
+</tr>""")
 
     facts = [
         f"**{PERSON['role']}** · {PERSON['lab']}, {PERSON['org']}",
@@ -1097,9 +1118,14 @@ def readme() -> str:
 
 ## Projects
 
-<sub>Tap a project to expand it. Languages from the GitHub API, read {AS_OF}.</sub>
+<table>
+<thead><tr><th>Project</th><th>About</th><th>Stack</th><th>Links</th></tr></thead>
+<tbody>
+{chr(10).join(rows)}
+</tbody>
+</table>
 
-{chr(10).join(cards)}
+<sub>Tap <b>Read more</b> for details. Languages from the GitHub API, read {AS_OF}.</sub>
 
 {top}
 
