@@ -38,7 +38,7 @@ DIM = "#76809a"
 CARD_INK = "#0b1020"  # dark text on the light ID card
 
 # Facts supplied by the user, plus GitHub API data read on AS_OF.
-AS_OF = "25 Oct 2026"
+AS_OF = "01 Nov 2026"
 PERSON = {
     "name": "Ritesh Kumar",
     "github": "RiteshKumar2e",
@@ -50,7 +50,7 @@ PERSON = {
               "intelligent automation, and AI-powered applications."),
     "roles": ["ML Engineer", "AI/ML Engineer", "Computer Vision Engineer", "Software Engineer"],
 }
-GH_API = {"public_repos": 79, "member_since": "Aug 2023"}  # api.github.com/users/RiteshKumar2e
+GH_API = {"public_repos": 80, "member_since": "Aug 2023"}  # api.github.com/users/RiteshKumar2e
 LINKS = [
     # (key, platform, display text, href)
     ("linkedin", "LinkedIn", "linkedin.com/in/riteshkumar-tech", "https://linkedin.com/in/riteshkumar-tech"),
@@ -61,6 +61,11 @@ LINKS = [
 PROJECTS = [
     # (name, description, highlights, repo, primary language per GitHub API)
     # Descriptions come from the user's brief or the repo's own README.
+    ("Community AI",
+     "AI-powered community platform that gives access to government schemes, learning resources "
+     "and job opportunities, with multilingual AI assistance in 11 languages.",
+     "FastAPI · React · Groq + Gemini · 11 languages",
+     "Community-Empowering-2.0", "JavaScript"),
     ("QuickFix",
      "AI-powered troubleshooting platform that helps users identify technical problems "
      "and provides actionable, step-by-step solutions.",
@@ -1015,7 +1020,7 @@ def build_connect() -> Doc:
 
 # ========================================================= README / misc ===
 # Bump an entry's version whenever that SVG changes, so GitHub stops serving the cached copy.
-VERSIONS = {"hero": 1, "about-life": 2, "stack": 1, "id-dashboard": 2, "connect": 1}
+VERSIONS = {"hero": 1, "about-life": 3, "stack": 1, "id-dashboard": 3, "connect": 1}
 IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
           ("about-life", "About — what I build and my interests"),
           ("stack", "Stack — the tools I build with"),
