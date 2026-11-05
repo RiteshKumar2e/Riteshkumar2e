@@ -38,7 +38,7 @@ DIM = "#76809a"
 CARD_INK = "#0b1020"  # dark text on the light ID card
 
 # Facts supplied by the user, plus GitHub API data read on AS_OF.
-AS_OF = "01 Nov 2026"
+AS_OF = "05 Nov 2026"
 PERSON = {
     "name": "Ritesh Kumar",
     "github": "RiteshKumar2e",
@@ -88,7 +88,8 @@ PROJECTS = [
      "Multi-agent · FastAPI · React · Playwright",
      "jobpilot", "Python"),
 ]
-LANG_COLORS = {"Python": "#3572A5", "Jupyter Notebook": "#DA5B0B", "JavaScript": "#f1e05a"}
+LANG_COLORS = {"Python": "#3572A5", "Jupyter Notebook": "#DA5B0B", "JavaScript": "#f1e05a",
+               "TypeScript": "#3178c6"}
 
 # ----------------------------------------------------------------- fonts ---
 FONT_FILES = {
@@ -740,6 +741,104 @@ def build_workflow() -> Doc:
     return d
 
 
+# ============================================================= BUILD LOG ===
+# Read from the GitHub API on AS_OF; taglines summarise each repo's own README.
+BUILDS = [
+    # name, tagline, repo, language, last push, live site
+    ("Wind Forecast Monitor", "Day-ahead wind forecasts checked against real output", "q7m2vx",
+     "TypeScript", "03 Nov", "https://q7m2vx.vercel.app"),
+    ("Digital Dark Spot", "Finds what research sources leave out", "DIGITAL-DARK-SPOT",
+     "JavaScript", "01 Nov", "https://digital-dark-spot-tau.vercel.app"),
+    ("VISTARA-X", "Predictive vision-based navigation, in simulation", "VISTARA-X",
+     "Python", "26 Oct", "https://vistara-x.vercel.app"),
+    ("FormPilot", "One verified profile, reused across application forms", "Formpilot",
+     "TypeScript", "10 Oct", "https://formpilot-six.vercel.app"),
+    ("Streamly", "Synced two-person watch party with a video call", "Streamly",
+     "JavaScript", "05 Oct", "https://streamly-psi-six.vercel.app"),
+    ("NEXUS", "Simulated AI decision support for disaster response", "Nexus",
+     "JavaScript", "30 Sep", "https://nexus-rouge-five.vercel.app"),
+]
+# Non-fork public repos by GitHub's primary language (4 more have none detected).
+REPO_LANGS = [("JavaScript", 21), ("Python", 15), ("Jupyter Notebook", 15),
+              ("TypeScript", 10), ("HTML", 5), ("CSS", 2)]
+OWN_REPOS, NEW_THIS_YEAR = 72, 42
+LIVE_SITES = 15  # distinct homepage URLs that answered 200 on AS_OF
+
+
+def build_log() -> Doc:
+    W, H = 1000, 604
+    d = Doc("bl", W, H, "Build log",
+            "Recent launches: " + "; ".join(f"{n} — {t}" for n, t, *_ in BUILDS)
+            + ". Own repositories by primary language: "
+            + ", ".join(f"{n} {c}" for n, c in REPO_LANGS)
+            + f". {OWN_REPOS} own repositories, {NEW_THIS_YEAR} created in 2026, "
+            f"{LIVE_SITES} live sites, as of {AS_OF}.")
+    d.frame_defs()
+    p = d.p
+    X = 56
+    d.body.append(f'<g class="fi">{d.eyebrow(X + 8, 72, "//", "BUILD LOG")}</g>')
+    title = "Shipping lately"
+    d.body.append(f'<g class="fu" {delay(.1)}>' + d.text(X + 6, 130, title, "d7", 50, INK, ls=-.03)
+                  + f'<rect x="{fmt(X + 6 + measure("d7", title, 50, -.03) + 5)}" y="120" width="10" height="10" rx="2" fill="{CRIMSON}"/></g>')
+    d.css.append(f"""
+.{p}-ping{{transform-box:fill-box;transform-origin:center;animation:{p}-ping 2.4s ease-out infinite both}}
+@keyframes {p}-ping{{0%{{opacity:.8;transform:scale(1)}}70%,100%{{opacity:0;transform:scale(2.6)}}}}
+.{p}-bar{{transform-box:fill-box;transform-origin:left center;animation:{p}-bar 1s cubic-bezier(.2,.75,.2,1) both}}
+@keyframes {p}-bar{{from{{transform:scaleX(0)}}to{{transform:none}}}}
+""")
+
+    # recent launches
+    top, rh, rg, lw = 168, 56, 8, 524
+    for k, (name, tag, _repo, lang, pushed, _live) in enumerate(BUILDS):
+        y = top + k * (rh + rg)
+        c = BLUE if k % 2 == 0 else CRIMSON
+        lang_w = measure("d5", lang, 13.5)
+        g = f'<g class="fu" {delay(.25 + k * .1)}>' + d.panel(X, y, lw, rh, 14)
+        g += (f'<circle class="{p}-ping" style="animation-delay:{k * .4:g}s" cx="{X + 22}" cy="{y + rh / 2}" r="5" fill="{c}"/>'
+              f'<circle cx="{X + 22}" cy="{y + rh / 2}" r="5" fill="{c}"/>')
+        g += d.text(X + 42, y + 24, name, "d7", 17, INK, maxw=lw - 150)
+        g += d.text(X + 42, y + 44, tag, "d5", 14, MUTED, maxw=lw - 138)
+        g += f'<circle cx="{fmt(X + lw - 16 - lang_w - 11)}" cy="{y + 19.5}" r="4.5" fill="{LANG_COLORS[lang]}"/>'
+        g += d.text(X + lw - 16, y + 24, lang, "d5", 13.5, MUTED, anchor="end")
+        g += d.text(X + lw - 16, y + 44, pushed.upper(), "m7", 11.5, MUTED, anchor="end", ls=.1)
+        d.body.append(g + "</g>")
+
+    # one series, so one hue; each bar is labelled directly
+    px = X + lw + 20
+    pw = W - X - px
+    ph = 250
+    g = f'<g class="fi" {delay(.3)}>' + d.panel(px, top, pw, ph, 18)
+    g += d.text(px + 20, top + 32, "Own repos by language", "d7", 17, INK, maxw=pw - 36)
+    g += d.text(px + 20, top + 52, "Primary language per repo", "d5", 13.5, MUTED)
+    d.body.append(g + "</g>")
+    bar_x, bar_max = px + 152, pw - 152 - 44
+    peak = max(c for _, c in REPO_LANGS)
+    for k, (lang, count) in enumerate(REPO_LANGS):
+        y = top + 74 + k * 28
+        bw = bar_max * count / peak
+        d.body.append(f'<g class="fi" {delay(.5 + k * .07)}>'
+                      + d.text(px + 20, y + 13, lang, "d5", 14, INK, maxw=126) + "</g>"
+                      + f'<rect class="{p}-bar" style="animation-delay:{.6 + k * .08:g}s" x="{fmt(bar_x)}" y="{y + 2}" width="{fmt(bw)}" height="12" rx="4" fill="{BLUE}"/>'
+                      + f'<g class="fi" {delay(1.1 + k * .07)}>' + d.text(bar_x + bw + 8, y + 13, str(count), "m7", 13, INK) + "</g>")
+
+    # headline numbers
+    sy = top + ph + 12
+    sh = top + 6 * rh + 5 * rg - sy
+    sw = (pw - 20) / 3
+    for k, (num, label) in enumerate(((OWN_REPOS, ["own", "repos"]), (NEW_THIS_YEAR, ["new in", "2026"]),
+                                      (LIVE_SITES, ["live", "sites"]))):
+        x = px + k * (sw + 10)
+        g = f'<g class="fu" {delay(.9 + k * .1)}>' + d.panel(x, sy, sw, sh, 14)
+        g += d.text(x + 14, sy + 44, str(num), "d7", 34, INK, ls=-.02)
+        for j, line in enumerate(label):
+            g += d.text(x + 14, sy + 68 + j * 18, line, "d5", 14, MUTED)
+        d.body.append(g + "</g>")
+    d.body.append(f'<g class="fi" {delay(1.3)}>'
+                  + d.text(X + 2, H - 28, f"GitHub API and live-site check, {AS_OF}. Dates are each repo's last push.",
+                           "m5", 12.5, MUTED) + "</g>")
+    return d
+
+
 # ================================================================= STACK ===
 GROUPS = [
     ("Languages", ["Python", "C++"]),
@@ -1138,11 +1237,13 @@ def build_connect() -> Doc:
 
 # ========================================================= README / misc ===
 # Bump an entry's version whenever that SVG changes, so GitHub stops serving the cached copy.
-VERSIONS = {"hero": 1, "about-life": 4, "stack": 1, "id-dashboard": 3, "workflow": 1, "connect": 1}
+VERSIONS = {"hero": 1, "about-life": 5, "stack": 1, "id-dashboard": 4, "build-log": 1,
+            "workflow": 1, "connect": 1}
 IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
           ("about-life", "About — what I build and my interests"),
           ("stack", "Stack — the tools I build with"),
           ("id-dashboard", "ID — lanyard card and verified, dated metrics"),
+          ("build-log", "Build log — recent launches, repos by language and headline stats"),
           ("workflow", "Workflow — from problem to product: data, model, API, product and a feedback loop"),
           ("connect", "Connect — LinkedIn, GitHub, email and portfolio")]
 
@@ -1171,7 +1272,7 @@ def badge(label: str, color: str, logo: str = "", logo_color: str = "white") -> 
 
 
 NAV = [("about", "About"), ("stack", "Stack"), ("verified", "Verified"), ("projects", "Projects"),
-       ("workflow", "Workflow"), ("activity", "Activity"), ("connect", "Connect")]
+       ("build-log", "Build log"), ("workflow", "Workflow"), ("activity", "Activity"), ("connect", "Connect")]
 
 
 def readme() -> str:
@@ -1205,6 +1306,7 @@ def readme() -> str:
     fact_list = "\n".join(f"- {f}" for f in facts)
     link_list = "\n".join(f"- **{pl}:** [{txt}]({href})" for _, pl, txt, href in LINKS)
     buttons = " &nbsp;".join(f'<kbd><a href="{href}">{pl} ↗</a></kbd>' for _, pl, _, href in LINKS)
+    builds = " &nbsp;".join(f'<kbd><a href="{live}">{name} ↗</a></kbd>' for name, _, _, _, _, live in BUILDS)
 
     return f"""<!-- Generated by scripts/build_profile.py. Animated SVGs live in ./assets. -->
 <a name="top"></a>
@@ -1245,6 +1347,12 @@ def readme() -> str:
 
 <sub>Tap <b>Read more</b> for details. Languages from the GitHub API, read {AS_OF}.</sub>
 
+
+<a name="build-log"></a>
+
+{img['build-log']}
+
+<p align="center">{builds}</p>
 
 <a name="workflow"></a>
 
@@ -1350,7 +1458,7 @@ Brand icons come from **Simple Icons 16.34.0** (https://simpleicons.org, npm `si
 def main():
     ASSETS.mkdir(exist_ok=True)
     builders = {"hero": build_hero, "about-life": build_about, "stack": build_stack,
-                "id-dashboard": build_id, "workflow": build_workflow, "connect": build_connect}
+                "id-dashboard": build_id, "build-log": build_log, "workflow": build_workflow, "connect": build_connect}
     for name, fn in builders.items():
         svg = fn().render()
         (ASSETS / f"{name}.svg").write_text(svg, encoding="utf8")

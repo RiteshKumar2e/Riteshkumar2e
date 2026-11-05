@@ -23,8 +23,8 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-NAMES = ["hero", "about-life", "stack", "id-dashboard", "workflow", "connect"]
-PREFIX = {"hero": "hr", "about-life": "ab", "stack": "st", "id-dashboard": "id", "workflow": "wf", "connect": "cn"}
+NAMES = ["hero", "about-life", "stack", "id-dashboard", "build-log", "workflow", "connect"]
+PREFIX = {"hero": "hr", "about-life": "ab", "stack": "st", "id-dashboard": "id", "build-log": "bl", "workflow": "wf", "connect": "cn"}
 TIMES = [0, 2, 5, 9, 13]
 
 problems: list[str] = []

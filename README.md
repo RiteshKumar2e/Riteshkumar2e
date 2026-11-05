@@ -3,11 +3,11 @@
 
 ![Intro — Ritesh Kumar, ML Engineer, Jamshedpur](./assets/hero.svg?v=1)
 
-<p align="center"><a href="#about">About</a> &nbsp;·&nbsp; <a href="#stack">Stack</a> &nbsp;·&nbsp; <a href="#verified">Verified</a> &nbsp;·&nbsp; <a href="#projects">Projects</a> &nbsp;·&nbsp; <a href="#workflow">Workflow</a> &nbsp;·&nbsp; <a href="#activity">Activity</a> &nbsp;·&nbsp; <a href="#connect">Connect</a></p>
+<p align="center"><a href="#about">About</a> &nbsp;·&nbsp; <a href="#stack">Stack</a> &nbsp;·&nbsp; <a href="#verified">Verified</a> &nbsp;·&nbsp; <a href="#projects">Projects</a> &nbsp;·&nbsp; <a href="#build-log">Build log</a> &nbsp;·&nbsp; <a href="#workflow">Workflow</a> &nbsp;·&nbsp; <a href="#activity">Activity</a> &nbsp;·&nbsp; <a href="#connect">Connect</a></p>
 
 <a name="about"></a>
 
-![About — what I build and my interests](./assets/about-life.svg?v=4)
+![About — what I build and my interests](./assets/about-life.svg?v=5)
 
 <details>
 <summary><b>Quick facts</b> &nbsp;<sub>(tap to expand: dated and verified)</sub></summary>
@@ -16,7 +16,7 @@
 - **B.Tech CSE** · CGPA 8.47 (May 2026)
 - **Naukri Young Turks 2025** · 98.61 percentile, Rank 7,122
 - **Hack Horizon 2.0** · 170+ teams, 750+ participants (2026)
-- **80 public repositories** on GitHub (GitHub API, 01 Nov 2026)
+- **80 public repositories** on GitHub (GitHub API, 05 Nov 2026)
 
 </details>
 
@@ -26,7 +26,7 @@
 
 <a name="verified"></a>
 
-![ID — lanyard card and verified, dated metrics](./assets/id-dashboard.svg?v=3)
+![ID — lanyard card and verified, dated metrics](./assets/id-dashboard.svg?v=4)
 
 <a name="projects"></a>
 
@@ -68,8 +68,14 @@
 </tbody>
 </table>
 
-<sub>Tap <b>Read more</b> for details. Languages from the GitHub API, read 01 Nov 2026.</sub>
+<sub>Tap <b>Read more</b> for details. Languages from the GitHub API, read 05 Nov 2026.</sub>
 
+
+<a name="build-log"></a>
+
+![Build log — recent launches, repos by language and headline stats](./assets/build-log.svg?v=1)
+
+<p align="center"><kbd><a href="https://q7m2vx.vercel.app">Wind Forecast Monitor ↗</a></kbd> &nbsp;<kbd><a href="https://digital-dark-spot-tau.vercel.app">Digital Dark Spot ↗</a></kbd> &nbsp;<kbd><a href="https://vistara-x.vercel.app">VISTARA-X ↗</a></kbd> &nbsp;<kbd><a href="https://formpilot-six.vercel.app">FormPilot ↗</a></kbd> &nbsp;<kbd><a href="https://streamly-psi-six.vercel.app">Streamly ↗</a></kbd> &nbsp;<kbd><a href="https://nexus-rouge-five.vercel.app">NEXUS ↗</a></kbd></p>
 
 <a name="workflow"></a>
 
