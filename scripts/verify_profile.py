@@ -23,8 +23,8 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-NAMES = ["hero", "about-life", "stack", "id-dashboard", "connect"]
-PREFIX = {"hero": "hr", "about-life": "ab", "stack": "st", "id-dashboard": "id", "connect": "cn"}
+NAMES = ["hero", "about-life", "stack", "id-dashboard", "workflow", "connect"]
+PREFIX = {"hero": "hr", "about-life": "ab", "stack": "st", "id-dashboard": "id", "workflow": "wf", "connect": "cn"}
 TIMES = [0, 2, 5, 9, 13]
 
 problems: list[str] = []
@@ -89,7 +89,7 @@ STRIP = """() => {
 TEXTS = """() => {
   const out = [];
   for (const t of document.querySelectorAll('text')) {
-    if (t.closest('defs')) continue;
+    if (t.closest('defs') || t.closest('[data-marquee]')) continue;  // marquee runs off-canvas inside a clip
     if (!t.checkVisibility({opacityProperty: true, visibilityProperty: true})) continue;
     let o = 1, n = t;
     while (n && n.nodeType === 1) { o *= parseFloat(getComputedStyle(n).opacity || 1); n = n.parentElement; }

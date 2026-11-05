@@ -237,6 +237,7 @@ GLYPH = {
     "arrow": '<path d="M5 12h14M13 6l6 6-6 6"/>',
     "chev": '<path d="M9 5l7 7-7 7"/>',
     "down": '<path d="M12 4v15M6 13l6 6 6-6"/>',
+    "target": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12h.01"/>',
     "braces": '<path d="M8.5 4C6.6 4 6 5 6 6.6v2.3c0 1.3-.7 2.1-2 2.1v2c1.3 0 2 .8 2 2.1v2.3C6 19 6.6 20 8.5 20M15.5 4c1.9 0 2.5 1 2.5 2.6v2.3c0 1.3.7 2.1 2 2.1v2c-1.3 0-2 .8-2 2.1v2.3c0 1.6-.6 2.6-2.5 2.6"/>',
 }
 
@@ -494,7 +495,7 @@ CAPS = [
 
 
 def build_about() -> Doc:
-    W, H = 1000, 520
+    W, H = 1000, 566
     d = Doc("ab", W, H, "About Ritesh Kumar",
             "What I build: " + "; ".join(f"{a} — {b}" for a, b in CAPS)
             + ". Interests: AI/ML research, hackathons, open source.")
@@ -502,7 +503,9 @@ def build_about() -> Doc:
     p = d.p
     X = 64
     d.body.append(f'<g class="fi">{d.eyebrow(X, 78, "01", "ABOUT")}</g>')
-    d.body.append(f'<g class="fu" {delay(.1)}>' + d.text(X - 2, 140, "What I build.", "d7", 56, INK, ls=-.03) + "</g>")
+    head_end = X - 2 + measure("d7", "What I build", 56, -.03) + 5
+    d.body.append(f'<g class="fu" {delay(.1)}>' + d.text(X - 2, 140, "What I build", "d7", 56, INK, ls=-.03)
+                  + f'<rect x="{fmt(head_end)}" y="129" width="11" height="11" rx="2" fill="{CRIMSON}"/></g>')
 
     y0, step = 184, 76
     for k, (title, line) in enumerate(CAPS):
@@ -520,6 +523,13 @@ def build_about() -> Doc:
     cx0, cy0, cw, ch = 590, 52, 346, 418
     ix = cx0 + 28
     iw = cw - 56
+    d.defs.append(f'''<radialGradient id="{p}-halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{BLUE}" stop-opacity=".42"/><stop offset=".6" stop-color="{CRIMSON}" stop-opacity=".1"/><stop offset="1" stop-color="{CRIMSON}" stop-opacity="0"/></radialGradient>
+<linearGradient id="{p}-prog" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{CRIMSON}"/></linearGradient>''')
+    d.css.append(f"""
+.{p}-halo{{transform-box:fill-box;transform-origin:center;animation:{p}-halo 6s ease-in-out infinite both}}
+@keyframes {p}-halo{{0%,100%{{opacity:.7;transform:scale(1)}}50%{{opacity:1;transform:scale(1.07)}}}}
+""")
+    d.body.append(f'<circle class="{p}-halo" cx="{cx0 + cw / 2}" cy="{cy0 + ch / 2}" r="280" fill="url(#{p}-halo)"/>')
     d.body.append(f'<g class="fi" {delay(.3)}>' + d.panel(cx0, cy0, cw, ch, 24) + "</g>")
     d.css.append(f"""
 .{p}-s0{{animation:{p}-s0 12s linear infinite both}}
@@ -547,7 +557,7 @@ def build_about() -> Doc:
         sx = ix + k * (sw + gap)
         base = "" if k == 0 else ' transform="scale(0 1)"'
         d.body.append(f'<rect class="fi" {delay(.3)} x="{fmt(sx)}" y="{cy0 + 26}" width="{fmt(sw)}" height="4" rx="2" fill="{INK}" fill-opacity=".14"/>'
-                      f'<rect class="{p}-g{k}" x="{fmt(sx)}" y="{cy0 + 26}" width="{fmt(sw)}" height="4" rx="2" fill="{BLUE}"{base}/>')
+                      f'<rect class="{p}-g{k}" x="{fmt(sx)}" y="{cy0 + 26}" width="{fmt(sw)}" height="4" rx="2" fill="url(#{p}-prog)"{base}/>')
 
     art_y = cy0 + 92
     slides = [
@@ -619,6 +629,114 @@ def build_about() -> Doc:
         if len(wrap(body, "d5", 16.5, iw)) > 3:
             raise ValueError(f"slide {k} body too long")
         d.body.append(g)
+
+    # --- scrolling keyword strip ---------------------------------------------
+    by, bh = 492, 44
+    bx, bw = X, W - 2 * X
+    words = ["COMPUTER VISION", "DEEP LEARNING", "INTELLIGENT AUTOMATION", "AI-POWERED APPLICATIONS",
+             "AI/ML RESEARCH", "HACKATHONS", "OPEN SOURCE"]
+    strip, sx = [], 0.0
+    for k, word in enumerate(words):
+        strip.append(d.text(sx, by + 27, word, "m7", 13, INK if k % 2 == 0 else MUTED, ls=.16))
+        sx += measure("m7", word, 13, .16) + 22
+        strip.append(f'<rect x="{fmt(sx)}" y="{by + 18}" width="8" height="8" rx="2" '
+                     f'fill="{BLUE if k % 2 == 0 else CRIMSON}" transform="rotate(45 {fmt(sx + 4)} {by + 22})"/>')
+        sx += 30
+    run = "".join(strip)
+    d.defs.append(f'''<clipPath id="{p}-band"><rect x="{bx}" y="{by}" width="{bw}" height="{bh}" rx="22"/></clipPath>
+<linearGradient id="{p}-edgel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b1122"/><stop offset="1" stop-color="#0b1122" stop-opacity="0"/></linearGradient>
+<linearGradient id="{p}-edger" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b1122" stop-opacity="0"/><stop offset="1" stop-color="#0b1122"/></linearGradient>''')
+    d.css.append(f"""
+.{p}-run{{animation:{p}-run 30s linear infinite both}}
+@keyframes {p}-run{{to{{transform:translateX(-{sx:.2f}px)}}}}
+""")
+    d.body.append(f'<g class="fi" {delay(.7)}>' + d.panel(bx, by, bw, bh, 22)
+                  + f'<g clip-path="url(#{p}-band)"><g transform="translate({bx + 24} 0)"><g class="{p}-run" data-marquee="1">{run}'
+                  + f'<g transform="translate({fmt(sx)} 0)">{run}</g></g></g>'
+                  + f'<rect x="{bx}" y="{by}" width="70" height="{bh}" fill="url(#{p}-edgel)"/>'
+                  + f'<rect x="{bx + bw - 70}" y="{by}" width="70" height="{bh}" fill="url(#{p}-edger)"/></g></g>')
+    return d
+
+
+# ============================================================== WORKFLOW ===
+STEPS = [
+    ("Problem", None, ["Start from a", "real need"]),
+    ("Data", "NumPy", ["NumPy", "Pandas"]),
+    ("Model", "PyTorch", ["PyTorch, OpenCV", "TensorFlow"]),
+    ("API", "FastAPI", ["FastAPI", "Node.js"]),
+    ("Product", "React", ["React", "applications"]),
+]
+
+
+def build_workflow() -> Doc:
+    W, H = 1000, 452
+    d = Doc("wf", W, H, "From problem to product",
+            "How I work: " + " to ".join(f"{n} ({' '.join(t)})" for n, _, t in STEPS)
+            + ", with product feedback flowing back to the data.")
+    d.frame_defs()
+    p = d.p
+    X = 56
+    d.body.append(f'<g class="fi">{d.eyebrow(X + 8, 72, "//", "WORKFLOW")}</g>')
+    title = "From problem to product"
+    d.body.append(f'<g class="fu" {delay(.1)}>' + d.text(X + 6, 130, title, "d7", 50, INK, ls=-.03)
+                  + f'<rect x="{fmt(X + 6 + measure("d7", title, 50, -.03) + 5)}" y="120" width="10" height="10" rx="2" fill="{CRIMSON}"/></g>')
+
+    gap = 20
+    cw = (W - 2 * X - 4 * gap) / 5
+    ty, cy, ch = 172, 196, 150
+    period, travel = 7.5, 6.0
+    centers = [X + k * (cw + gap) + cw / 2 for k in range(5)]
+    d.defs.append(f'''<linearGradient id="{p}-track" gradientUnits="userSpaceOnUse" x1="{fmt(centers[0])}" y1="0" x2="{fmt(centers[-1])}" y2="0"><stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{CRIMSON}"/></linearGradient>
+<radialGradient id="{p}-spark" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{INK}"/><stop offset=".35" stop-color="{INK}"/><stop offset=".55" stop-color="{BLUE}" stop-opacity=".7"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></radialGradient>''')
+    d.css.append(f"""
+.{p}-on{{animation:{p}-on {period}s ease-in-out infinite both}}
+@keyframes {p}-on{{0%{{opacity:0}}5%,17%{{opacity:1}}24%,100%{{opacity:0}}}}
+.{p}-flow{{animation:{p}-flow 1.6s linear infinite both}}
+@keyframes {p}-flow{{to{{stroke-dashoffset:-20}}}}
+""")
+    d.body.append(f'<path class="fi" {delay(.3)} d="M{fmt(centers[0])} {ty}H{fmt(centers[-1])}" stroke="url(#{p}-track)" stroke-width="2.5" stroke-linecap="round"/>')
+    for k, (name, tech, lines) in enumerate(STEPS):
+        x = X + k * (cw + gap)
+        c = BLUE if k % 2 == 0 else CRIMSON
+        g = f'<g class="fu" {delay(.3 + k * .12)}>' + d.panel(x, cy, cw, ch, 18)
+        g += f'<circle cx="{fmt(centers[k])}" cy="{ty}" r="7" fill="{NAVY}" stroke="{c}" stroke-width="3"/>'
+        g += f'<path d="M{fmt(centers[k])} {ty + 7}V{cy}" stroke="{c}" stroke-opacity=".7"/>'
+        tx, tyy = x + 16, cy + 16
+        if tech:
+            path, hexc, bg = brand(tech)
+            g += f'<rect x="{fmt(tx)}" y="{tyy}" width="44" height="44" rx="12" fill="{bg}"/>'
+            g += f'<path transform="translate({fmt(tx + 10)} {tyy + 10})" d="{path}" fill="{hexc}"/>'
+        else:
+            g += f'<rect x="{fmt(tx)}" y="{tyy}" width="44" height="44" rx="12" fill="{INK}"/>'
+            g += glyph("target", tx + 10, tyy + 10, 24, CRIMSON, 2.2)
+        g += d.text(x + cw - 16, cy + 34, f"0{k + 1}", "m7", 14, MUTED, anchor="end")
+        g += d.text(x + 16, cy + 88, name, "d7", 22, INK, maxw=cw - 28)
+        for j, line in enumerate(lines):
+            g += d.text(x + 16, cy + 112 + j * 20, line, "d5", 14.5, MUTED, maxw=cw - 26)
+        d.body.append(g + "</g>")
+        d.body.append(f'<rect class="{p}-on" style="animation-delay:{k * travel / 4:g}s" opacity="0" x="{fmt(x)}" y="{cy}" '
+                      f'width="{fmt(cw)}" height="{ch}" rx="18" fill="{c}" fill-opacity=".1" stroke="{c}" stroke-width="2"/>')
+
+    # travelling spark: SMIL from 0s, the pause at the end lives in keyTimes
+    dist = centers[-1] - centers[0]
+    end = travel / period
+    d.body.append(f'<g class="motion" transform="translate({fmt(centers[0])} {ty})"><g>'
+                  f'<animateMotion begin="0s" dur="{period}s" repeatCount="indefinite" path="M0 0H{fmt(dist)}" '
+                  f'keyPoints="0;1;1" keyTimes="0;{end:.2f};1" calcMode="linear"/>'
+                  f'<circle r="13" fill="url(#{p}-spark)"/></g></g>')
+
+    # feedback loop from Product back to Data
+    fy = cy + ch
+    ly = H - 42
+    loop = (f"M{fmt(centers[4])} {fy}V{ly - 16}Q{fmt(centers[4])} {ly} {fmt(centers[4] - 16)} {ly}"
+            f"H{fmt(centers[1] + 16)}Q{fmt(centers[1])} {ly} {fmt(centers[1])} {ly - 16}V{fy + 10}")
+    label = "FEEDBACK LOOP"
+    lw = measure("m7", label, 12, .16) + 28
+    mid = (centers[1] + centers[4]) / 2
+    d.body.append(f'<g class="fi" {delay(1)}><path class="{p}-flow" d="{loop}" fill="none" stroke="{CRIMSON}" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round"/>'
+                  f'<path d="M{fmt(centers[1] - 6)} {fy + 15}L{fmt(centers[1])} {fy + 6}L{fmt(centers[1] + 6)} {fy + 15}" fill="none" stroke="{CRIMSON}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
+                  f'<rect x="{fmt(mid - lw / 2)}" y="{ly - 14}" width="{fmt(lw)}" height="28" rx="14" fill="#0b1122" stroke="{CRIMSON}" stroke-opacity=".6"/>'
+                  + d.text(mid, ly + 4.5, label, "m7", 12, INK, anchor="middle", ls=.16) + "</g>")
     return d
 
 
@@ -1020,11 +1138,12 @@ def build_connect() -> Doc:
 
 # ========================================================= README / misc ===
 # Bump an entry's version whenever that SVG changes, so GitHub stops serving the cached copy.
-VERSIONS = {"hero": 1, "about-life": 3, "stack": 1, "id-dashboard": 3, "connect": 1}
+VERSIONS = {"hero": 1, "about-life": 4, "stack": 1, "id-dashboard": 3, "workflow": 1, "connect": 1}
 IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
           ("about-life", "About — what I build and my interests"),
           ("stack", "Stack — the tools I build with"),
           ("id-dashboard", "ID — lanyard card and verified, dated metrics"),
+          ("workflow", "Workflow — from problem to product: data, model, API, product and a feedback loop"),
           ("connect", "Connect — LinkedIn, GitHub, email and portfolio")]
 
 
@@ -1129,20 +1248,7 @@ def readme() -> str:
 
 <a name="workflow"></a>
 
-## From problem to product
-
-```mermaid
-flowchart LR
-  P(["Problem"]) --> D["Data<br/>NumPy · Pandas"]
-  D --> M["Model<br/>PyTorch · TensorFlow · OpenCV"]
-  M --> A["API<br/>FastAPI · Node.js"]
-  A --> U["Product<br/>React"]
-  U -. "feedback" .-> D
-  classDef step fill:#0d1426,stroke:#247bff,color:#f3f0e8
-  classDef ends fill:#ff354f,stroke:#ff354f,color:#ffffff
-  class D,M,A step
-  class P,U ends
-```
+{img['workflow']}
 
 <a name="activity"></a>
 
@@ -1244,7 +1350,7 @@ Brand icons come from **Simple Icons 16.34.0** (https://simpleicons.org, npm `si
 def main():
     ASSETS.mkdir(exist_ok=True)
     builders = {"hero": build_hero, "about-life": build_about, "stack": build_stack,
-                "id-dashboard": build_id, "connect": build_connect}
+                "id-dashboard": build_id, "workflow": build_workflow, "connect": build_connect}
     for name, fn in builders.items():
         svg = fn().render()
         (ASSETS / f"{name}.svg").write_text(svg, encoding="utf8")
