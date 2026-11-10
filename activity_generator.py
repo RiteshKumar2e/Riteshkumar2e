@@ -4,12 +4,12 @@ from datetime import datetime
 def make_specific_commits():
     # Specific dates with 4 commits each
     dates = [
-        "2026-08-27",
-        "2026-08-28"
+        "2026-11-09",
+        "2026-11-10"
     ]
 
     for date_str in dates:
-        for i in range(2):
+        for i in range(4):
             # Different times for each commit
             commit_time = datetime.strptime(
                 f"{date_str} {10+i}:{15+i}:00",
