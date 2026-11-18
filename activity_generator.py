@@ -4,13 +4,8 @@ from datetime import datetime
 def make_specific_commits():
     # Specific dates with 4 commits each
     dates = [
-<<<<<<< HEAD
-        "2026-11-09",
-        "2026-11-10"
-=======
-        "2026-10-12",
-        "2026-10-13"
->>>>>>> 81be2d63a53bdd4458087d413ff8e6981320ab94
+        "2026-11-17",
+        "2026-11-18"
     ]
 
     for date_str in dates:
@@ -35,7 +30,7 @@ def make_specific_commits():
                 f'git commit -m "Update activity log" --date="{formatted_date}"'
             )
 
-    print("Success! 4 commits created for 12 July 2026 and 13 July 2026.")
+    print("Success! 4 commits created for 9 November 2026 and 10 November 2026.")
 
 
 if __name__ == "__main__":
