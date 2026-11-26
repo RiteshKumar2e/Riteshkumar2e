@@ -38,7 +38,7 @@ DIM = "#76809a"
 CARD_INK = "#0b1020"  # dark text on the light ID card
 
 # Facts supplied by the user, plus GitHub API data read on AS_OF.
-AS_OF = "05 Nov 2026"
+AS_OF = "26 Nov 2026"
 PERSON = {
     "name": "Ritesh Kumar",
     "github": "RiteshKumar2e",
@@ -50,7 +50,7 @@ PERSON = {
               "intelligent automation, and AI-powered applications."),
     "roles": ["ML Engineer", "AI/ML Engineer", "Computer Vision Engineer", "Software Engineer"],
 }
-GH_API = {"public_repos": 80, "member_since": "Aug 2023"}  # api.github.com/users/RiteshKumar2e
+GH_API = {"public_repos": 83, "member_since": "Aug 2023"}  # api.github.com/users/RiteshKumar2e
 LINKS = [
     # (key, platform, display text, href)
     ("linkedin", "LinkedIn", "linkedin.com/in/riteshkumar-tech", "https://linkedin.com/in/riteshkumar-tech"),
@@ -744,25 +744,27 @@ def build_workflow() -> Doc:
 # ============================================================= BUILD LOG ===
 # Read from the GitHub API on AS_OF; taglines summarise each repo's own README.
 BUILDS = [
-    # name, tagline, repo, language, last push, live site
+    # name, tagline, repo, language, last push, live site (None: no site, link the repo)
+    ("TRIAD-Det", "Risk-controlled steel defect detection", "TRIAD-Det",
+     "Python", "26 Nov", None),
+    ("GRIEVANCE", "Agentic AI for multilingual civic grievances", "GRIEVANCE",
+     "TypeScript", "24 Nov", None),
+    ("GURUKUL AI", "Hindi-first AI tutor for low-cost phones", "GURUKUL-AI",
+     "TypeScript", "23 Nov", "https://gurukul-ai.vercel.app"),
     ("Wind Forecast Monitor", "Day-ahead wind forecasts checked against real output", "q7m2vx",
      "TypeScript", "03 Nov", "https://q7m2vx.vercel.app"),
     ("Digital Dark Spot", "Finds what research sources leave out", "DIGITAL-DARK-SPOT",
      "JavaScript", "01 Nov", "https://digital-dark-spot-tau.vercel.app"),
     ("VISTARA-X", "Predictive vision-based navigation, in simulation", "VISTARA-X",
      "Python", "26 Oct", "https://vistara-x.vercel.app"),
-    ("FormPilot", "One verified profile, reused across application forms", "Formpilot",
-     "TypeScript", "10 Oct", "https://formpilot-six.vercel.app"),
-    ("Streamly", "Synced two-person watch party with a video call", "Streamly",
-     "JavaScript", "05 Oct", "https://streamly-psi-six.vercel.app"),
-    ("NEXUS", "Simulated AI decision support for disaster response", "Nexus",
-     "JavaScript", "30 Sep", "https://nexus-rouge-five.vercel.app"),
 ]
 # Non-fork public repos by GitHub's primary language (4 more have none detected).
-REPO_LANGS = [("JavaScript", 21), ("Python", 15), ("Jupyter Notebook", 15),
-              ("TypeScript", 10), ("HTML", 5), ("CSS", 2)]
-OWN_REPOS, NEW_THIS_YEAR = 72, 42
-LIVE_SITES = 15  # distinct homepage URLs that answered 200 on AS_OF
+REPO_LANGS = [("JavaScript", 21), ("Python", 16), ("Jupyter Notebook", 15),
+              ("TypeScript", 12), ("HTML", 5), ("CSS", 2)]
+OWN_REPOS, NEW_THIS_YEAR = 75, 45
+# Distinct homepage URLs that answered 200. Re-check before changing: on 26 Nov the
+# local network could not reach any *.vercel.app host, so the 05 Nov count stands.
+LIVE_SITES, LIVE_AS_OF = 15, "05 Nov 2026"
 
 
 def build_log() -> Doc:
@@ -772,7 +774,7 @@ def build_log() -> Doc:
             + ". Own repositories by primary language: "
             + ", ".join(f"{n} {c}" for n, c in REPO_LANGS)
             + f". {OWN_REPOS} own repositories, {NEW_THIS_YEAR} created in 2026, "
-            f"{LIVE_SITES} live sites, as of {AS_OF}.")
+            f"{LIVE_SITES} live sites (checked {LIVE_AS_OF}), as of {AS_OF}.")
     d.frame_defs()
     p = d.p
     X = 56
@@ -834,7 +836,7 @@ def build_log() -> Doc:
             g += d.text(x + 14, sy + 68 + j * 18, line, "d5", 14, MUTED)
         d.body.append(g + "</g>")
     d.body.append(f'<g class="fi" {delay(1.3)}>'
-                  + d.text(X + 2, H - 28, f"GitHub API and live-site check, {AS_OF}. Dates are each repo's last push.",
+                  + d.text(X + 2, H - 28, f"GitHub API {AS_OF} · live sites checked {LIVE_AS_OF}. Dates are each repo's last push.",
                            "m5", 12.5, MUTED) + "</g>")
     return d
 
@@ -1237,7 +1239,7 @@ def build_connect() -> Doc:
 
 # ========================================================= README / misc ===
 # Bump an entry's version whenever that SVG changes, so GitHub stops serving the cached copy.
-VERSIONS = {"hero": 1, "about-life": 5, "stack": 1, "id-dashboard": 4, "build-log": 1,
+VERSIONS = {"hero": 1, "about-life": 6, "stack": 1, "id-dashboard": 5, "build-log": 2,
             "workflow": 1, "connect": 1}
 IMAGES = [("hero", "Intro — Ritesh Kumar, ML Engineer, Jamshedpur"),
           ("about-life", "About — what I build and my interests"),
@@ -1306,7 +1308,8 @@ def readme() -> str:
     fact_list = "\n".join(f"- {f}" for f in facts)
     link_list = "\n".join(f"- **{pl}:** [{txt}]({href})" for _, pl, txt, href in LINKS)
     buttons = " &nbsp;".join(f'<kbd><a href="{href}">{pl} ↗</a></kbd>' for _, pl, _, href in LINKS)
-    builds = " &nbsp;".join(f'<kbd><a href="{live}">{name} ↗</a></kbd>' for name, _, _, _, _, live in BUILDS)
+    builds = " &nbsp;".join(f'<kbd><a href="{live or f"https://github.com/{gh}/{repo}"}">{name} ↗</a></kbd>'
+                            for name, _, repo, _, _, live in BUILDS)
 
     return f"""<!-- Generated by scripts/build_profile.py. Animated SVGs live in ./assets. -->
 <a name="top"></a>
